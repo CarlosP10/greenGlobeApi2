@@ -8,6 +8,6 @@ router.post('/', green.create);
 
 router.put('/:greenId', green.update);
 
-router.delete('/:greenId', green.delete);
+//router.delete('/:greenId', green.delete);
 
 module.exports = router
