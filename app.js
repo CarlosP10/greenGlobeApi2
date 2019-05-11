@@ -4,17 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var coinsRouter = require('./routes/coins');
+var greenRouter = require('./routes/green');
 // Connect to mongo
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb+srv://user:holadb@cluster0-e7aiv.mongodb.net/coins?retryWrites=true",{
-  useNewUrlParser:true
-}).then(()=>{
-  console.log("Base de datos conectada");
-}).catch((err)=>{
-  console.log(err, "No se puede conectar a la base");
+mongoose.connect("mongodb+srv://user:holadb@cluster0-e7aiv.mongodb.net/coins?retryWrites=true", {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Base de datos conectada");
+}).catch((err) => {
+    console.log(err, "No se puede conectar a la base");
 });
 
 var app = express();
@@ -29,22 +29,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', coinsRouter);
+app.use('/', greenRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;
